@@ -1,17 +1,38 @@
 body{
-    background: linear-gradient(135deg, #d8f3dc 0%, #f8fdfa 100%);
+    margin: 0px;
+    background-color: #7ed957;
 }
 
 input{
+    transition: .2s;
+    display: inline-block;
+    background-color: #f9d8b4;
+    box-shadow: inset 0 4px 7px rgba(0,0,0,0.2); /* Adds shadow */
+    border: none;
+    border-radius: 8px;
     margin: 3px;
     width: 85%;
     font-size: 18px;
-    height: 40px;
+    text-align: center;
+    height: 45px;
     font-family: arial;
+}
+
+input:hover{
+    transition: .2s;
+    transform: scale(1.02);
+}
+
+.bi{
+    font-size: 25px;
 }
 
 .menu{
     border-bottom: 1px solid black;
+}
+
+.profile{
+    position: absolute;
 }
 
 .container-fluid{
@@ -52,13 +73,19 @@ input{
 }
 
 .note{
-    background-color: rgb(241, 153, 153);
+    transition: .2s;
+    background-color: rgb(155, 145, 145);
     display: flex;
     justify-content: center;
     align-items: center;
-    border: transparent solid rgb(250, 109, 109);
+    border: transparent solid rgb(114, 105, 105);
     border-radius: 4px;
     margin: 3vw;
     height: 40px;
     width: 40px;
+}
+
+.note:hover{
+    transition: .2s;
+    transform: scale(1.04);
 }
