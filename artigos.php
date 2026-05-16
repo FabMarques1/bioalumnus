@@ -210,7 +210,7 @@ if(isset($_SESSION['id'])){
                                     </div>
                                     <div class="card-footer d-flex justify-content-between align-items-center">
                                         <small class="text-muted"><i class="bi bi-calendar me-1"></i>Data do artigo</small>
-                                        <a href="artigo.html" class="btn btn-sm btn-outline-verde">Ler mais</a>
+                                        <a href="artigo.php" class="btn btn-sm btn-outline-verde">Ler mais</a>
                                     </div>
                                 </div>
                             </div> 
