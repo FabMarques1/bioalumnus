@@ -1,0 +1,13 @@
+:root {
+    --verde-mato: #2d5a27;
+    --verde-mato-claro: #3d7a35;
+    --verde-mato-escuro: #1e3d1a;
+    --verde-destaque: #4a9f42;
+    --verde-destaque-2: #49d63c;
+    --fundo-principal: #0d0d0d;
+    --fundo-card: #1a1a1a;
+    --fundo-sidebar: #141414;
+    --texto-principal: #e8e8e8;
+    --texto-secundario: #a0a0a0;
+    --borda-sutil: #2a2a2a;
+}
