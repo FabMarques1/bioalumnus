@@ -10,7 +10,6 @@
     <link rel="icon" href="frontend/assets/icons/icon.png">
 </head>
 <body>
-    <!-- HEADER -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="index.html">
@@ -32,10 +31,10 @@
                         <a class="nav-link" href="lupa.html">Lupa</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" method="GET" action="artigos.php">
+                <form class="d-flex" role="search">
                     <div class="input-group">
                         
-                        <input name="search" class="form-control" type="search" placeholder="Buscar na wiki..." aria-label="Buscar">
+                        <input class="form-control" type="search" placeholder="Buscar na wiki..." aria-label="Buscar">
                         <button class="btn btn-verde" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -58,7 +57,7 @@
             </div>
         </div>
     </nav>
-    <!-- SIDEBAR MOBILE -->
+
     <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">
@@ -82,7 +81,7 @@
             </div>
             <p class="sidebar-title">Categorias</p>
             <ul class="sidebar-nav">
-                <li><a href="artigos.html?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
+                <li><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
             </ul>
             <p class="sidebar-title mt-4">Recursos</p>
             <ul class="sidebar-nav">
@@ -92,9 +91,9 @@
             </ul>
         </div>
     </div>
+
     <div class="container-fluid" style="margin-top: 76px;">
         <div class="row">
-            <!-- SIDEBAR DESKTOP -->
             <div class="col-lg-3 col-xl-2 d-none d-lg-block p-0">
                 <div class="sidebar">
                     <p class="sidebar-title">Categorias</p>
@@ -125,84 +124,30 @@
                     -->
                 </div>
             </div>
-            <!-- MAIN -->
+
             <div class="col-lg-9 col-xl-10">
                 <main class="main-content" id="inicio">
-                    <section class="hero-section">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 mb-4 mb-lg-0">
-                                <h1>Bem-vindo ao <span>BioAlumnus</span></h1>
-                                <p>Sua enciclopédia colaborativa de Biologia. Explore o fascinante mundo da vida através de artigos científicos detalhados, ilustrações e recursos educacionais.</p>
-                                <div class="mt-4">
-                                    <a href="artigos.php" class="btn btn-verde btn-md me-2">
-                                        <i class="bi bi-book me-2"></i>Explorar Artigos
-                                    </a>
-                                    <a href="#sobre" class="btn btn-outline-verde btn-md">
-                                        <i class="bi bi-info-circle me-2"></i>Saiba Mais
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-                                    <div class="carousel-indicators">
-                                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    </div>
-                                    <div class="carousel-inner rounded-4 overflow-hidden" style="border: 3px solid var(--verde-mato);">
-                                        <div class="carousel-item active">
-                                            <a href="#artigo-1-destaque">
-                                                <img src="frontend/assets/img/cadeia-alimentar.png" class="d-block w-100" alt="Cadeia Alimentar" style="height: 280px; object-fit: cover;">
-                                            </a>
-                                                <div class="carousel-caption" style="background: linear-gradient(transparent, rgba(13, 13, 13, 0.9)); bottom: 0; left: 0; right: 0; padding: 2rem 1rem 1rem;">
-                                                    <h5 style="color: var(--verde-destaque-2);">Cadeia Alimentar</h5>
-                                                </div>
-                                            
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="#artigo-2-destaque">
-                                                <img src="frontend/assets/img/teia-alimentar.png" class="d-block w-100" alt="Teia Alimentar" style="height: 280px; object-fit: cover;">
-                                                <div class="carousel-caption" style="background: linear-gradient(transparent, rgba(13, 13, 13, 0.9)); bottom: 0; left: 0; right: 0; padding: 2rem 1rem 1rem;">
-                                                    <h5 style="color: var(--verde-destaque-2);">Teia Alimentar</h5>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: drop-shadow(0 0 3px rgba(0,0,0,0.8));"></span>
-                                        <span class="visually-hidden">Anterior</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true" style="filter: drop-shadow(0 0 3px rgba(0,0,0,0.8));"></span>
-                                        <span class="visually-hidden">Próximo</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
                     <section id="artigos" class="mb-5">
-                        <h2 class="section-title">
-                            <i class="bi bi-star-fill"></i>
-                            Artigos em Destaque
-                        </h2>
                         <div class="row g-4">
-                            <div class="col-md-6 col-xl-4">
-                                <div class="bio-card">
-                                    <img src="frontend/assets/img/welcome.png" class="card-img-top" alt="Fotossíntese">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="card artigo-card">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
                                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" alt="Prof. Carlos Silva" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover; border: 2px solid var(--verde-mato);">
-                                            <span style="color: var(--texto-secundario); font-size: 0.9rem;">Alu. Fabricio Henrique</span>
+                                            <span style="color: var(--texto-secundario); font-size: 0.9rem;"><i>Alu.</i> Fabricio Henrique</span>
                                         </div>
+                                        
                                         <div class="mb-2">
                                             <span class="badge">Boas-vindas</span>
                                         </div>
                                         <h5 class="card-title">Seja bem-vindo ao BioAlumnus!</h5>
-                                        <p class="card-text">Este artigo se trata de um bem-vindo aos alunos e professores sobre a plataforma de estudos.</p>
+                                        <p style="text-align: justify;" class="card-text">Olá! Boas vindas ao <b><span style="color: var(--verde-destaque);">BioAlumnus</span> aluno ou docente.</b></p>
+                                        <p style="text-align: justify;" class="card-text">Vejo que deve estar se perguntando: para o que é essa plataforma? O que de fato há de conter nessa nova área da tecnologia? O que é tudo isso? Pois bem, <b>não precisa temer!</b> Vamos todos por partes para entender como que funciona de fato todo o esquema por aqui, cada tópico e cada área para navegar sem dificuldade. Vamos lá?</p>
+                                        <h4 style="color: var(--verde-destaque);"><b>O que é o BioAlumnus?</b></h4>
+                                        <p style="text-align: justify;" class="card-text">Produzido inicialmente como um projeto escolar, o BioAlumnus <i>(Vida + Aluno em latim)</i> veio como uma proposta nova e interativa para o ensino na questão das ciências da vida com a tecnologia, trazendo uma ideia incentivadora para os jovens estudarem e absorverem, de forma memorável, conteúdos de biologia que são ensinados em âmbito escolar e contexto disciplinar, aprimorando e aprofundando seu conhecimento com base de orientadores e professores verificados que trazem informações verificadas para um ambiente mais seguro e com dados confiáveis.</p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between align-items-center">
-                                        <small class="text-muted"><i class="bi bi-calendar me-1"></i>12 Mai. 2026</small>
-                                        <a href="artigo.html" class="btn btn-sm btn-outline-verde">Ler mais</a>
+                                        <small class="text-muted"><i class="bi bi-calendar me-1"></i>12 Mai 2024</small>
                                     </div>
                                 </div>
                             </div> 
@@ -212,7 +157,7 @@
                     <section id="sobre" class="mb-5">
                         <h2 class="section-title">
                             <i class="bi bi-info-circle"></i>
-                            Sobre o BioAlumnus
+                            Sobre este usuário
                         </h2>
                         <div class="content-article">
                             <div class="row align-items-center">
@@ -222,11 +167,11 @@
                                     <h3>Nossa Missão</h3>
                                     <p>Democratizar o acesso ao conhecimento biológico, fornecendo recursos educacionais gratuitos e de alta qualidade para todos que desejam aprender sobre a vida e seus processos.</p>
                                 </div>
-                                <div class="col-lg-4 text-center">
+                                <div class="col-lg-4">
                                     <div class="stats-card">
                                         <i class="bi bi-award"></i>
                                         <h3>2026</h3>
-                                        <p class="foundation-bioalumnus">Fundação do BioAlumnus</p>
+                                        <p align="center">Fundação do BioAlumnus</p>
                                     </div>
                                 </div>
                             </div>

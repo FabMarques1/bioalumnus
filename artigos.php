@@ -1,9 +1,43 @@
+<?php
+
+$theme_selection;
+
+if(isset($_GET["theme"])){
+    $theme = $_GET['theme'];
+} else{
+    $theme = "";
+}
+
+if(isset($_GET['search'])){
+    $search = $_GET['search'];
+} else{
+    $search = "Temas";
+}
+
+switch($theme){
+    case "ecologia":
+        $theme_selection = true;
+        $bg_foto = "
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(frontend/assets/img/theme-ecologia.jpg);
+        background-position: 25% 75%;
+        ";
+    break;
+    default:
+    $theme_selection = false;
+        $bg_foto = "";
+    break;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioAlumnus - Enciclopédia de Biologia</title>
+    <title>BioAlumnus - <?php echo $search; ?> </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="frontend/styles/index.css">
@@ -82,7 +116,7 @@
             </div>
             <p class="sidebar-title">Categorias</p>
             <ul class="sidebar-nav">
-                <li><a href="artigos.html?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
+                <li <?php if($theme == "ecologia"){ echo "style='background-color: rgba(75, 151, 65, 0.15);'"; } ?>><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
             </ul>
             <p class="sidebar-title mt-4">Recursos</p>
             <ul class="sidebar-nav">
@@ -99,7 +133,7 @@
                 <div class="sidebar">
                     <p class="sidebar-title">Categorias</p>
                     <ul class="sidebar-nav">
-                        <li><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
+                        <li <?php if($theme == "ecologia"){ echo "style='background-color: rgba(75, 151, 65, 0.15);'"; } ?>><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
                     </ul>
                     <p class="sidebar-title mt-4">Recursos</p>
                     <ul class="sidebar-nav">
@@ -128,108 +162,42 @@
             <!-- MAIN -->
             <div class="col-lg-9 col-xl-10">
                 <main class="main-content" id="inicio">
-                    <section class="hero-section">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 mb-4 mb-lg-0">
-                                <h1>Bem-vindo ao <span>BioAlumnus</span></h1>
-                                <p>Sua enciclopédia colaborativa de Biologia. Explore o fascinante mundo da vida através de artigos científicos detalhados, ilustrações e recursos educacionais.</p>
-                                <div class="mt-4">
-                                    <a href="artigos.php" class="btn btn-verde btn-md me-2">
-                                        <i class="bi bi-book me-2"></i>Explorar Artigos
-                                    </a>
-                                    <a href="#sobre" class="btn btn-outline-verde btn-md">
-                                        <i class="bi bi-info-circle me-2"></i>Saiba Mais
-                                    </a>
-                                </div>
+                    <?php if($theme_selection == true): ?>
+                        <section style="<?php echo $bg_foto; ?>" class="hero-section">
+                            <div class="row align-items-center">
+                                <center>
+                                    <h2>Ecologia</h2>
+                                </center>
                             </div>
-                            <div class="col-lg-6">
-                                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-                                    <div class="carousel-indicators">
-                                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    </div>
-                                    <div class="carousel-inner rounded-4 overflow-hidden" style="border: 3px solid var(--verde-mato);">
-                                        <div class="carousel-item active">
-                                            <a href="#artigo-1-destaque">
-                                                <img src="frontend/assets/img/cadeia-alimentar.png" class="d-block w-100" alt="Cadeia Alimentar" style="height: 280px; object-fit: cover;">
-                                            </a>
-                                                <div class="carousel-caption" style="background: linear-gradient(transparent, rgba(13, 13, 13, 0.9)); bottom: 0; left: 0; right: 0; padding: 2rem 1rem 1rem;">
-                                                    <h5 style="color: var(--verde-destaque-2);">Cadeia Alimentar</h5>
-                                                </div>
-                                            
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="#artigo-2-destaque">
-                                                <img src="frontend/assets/img/teia-alimentar.png" class="d-block w-100" alt="Teia Alimentar" style="height: 280px; object-fit: cover;">
-                                                <div class="carousel-caption" style="background: linear-gradient(transparent, rgba(13, 13, 13, 0.9)); bottom: 0; left: 0; right: 0; padding: 2rem 1rem 1rem;">
-                                                    <h5 style="color: var(--verde-destaque-2);">Teia Alimentar</h5>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: drop-shadow(0 0 3px rgba(0,0,0,0.8));"></span>
-                                        <span class="visually-hidden">Anterior</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true" style="filter: drop-shadow(0 0 3px rgba(0,0,0,0.8));"></span>
-                                        <span class="visually-hidden">Próximo</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </section>
+                    <h2 class="section-title">
+                            
+                    </h2>
+                    <?php endif; ?>
 
                     <section id="artigos" class="mb-5">
-                        <h2 class="section-title">
-                            <i class="bi bi-star-fill"></i>
-                            Artigos em Destaque
-                        </h2>
+                        
                         <div class="row g-4">
                             <div class="col-md-6 col-xl-4">
                                 <div class="bio-card">
-                                    <img src="frontend/assets/img/welcome.png" class="card-img-top" alt="Fotossíntese">
+                                    <img src="" class="card-img-top" alt="Foto do artigo">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center mb-3">
-                                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" alt="Prof. Carlos Silva" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover; border: 2px solid var(--verde-mato);">
-                                            <span style="color: var(--texto-secundario); font-size: 0.9rem;">Alu. Fabricio Henrique</span>
+                                            <img src="" alt="Foto do professor" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover; border: 2px solid var(--verde-mato);">
+                                            <span style="color: var(--texto-secundario); font-size: 0.9rem;">Nome do prof.</span>
                                         </div>
                                         <div class="mb-2">
-                                            <span class="badge">Boas-vindas</span>
+                                            <span class="badge">Tema do artigo</span>
                                         </div>
-                                        <h5 class="card-title">Seja bem-vindo ao BioAlumnus!</h5>
-                                        <p class="card-text">Este artigo se trata de um bem-vindo aos alunos e professores sobre a plataforma de estudos.</p>
+                                        <h5 class="card-title">Título do artigo</h5>
+                                        <p class="card-text">Descrição breve do artigo</p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between align-items-center">
-                                        <small class="text-muted"><i class="bi bi-calendar me-1"></i>12 Mai. 2026</small>
+                                        <small class="text-muted"><i class="bi bi-calendar me-1"></i>Data do artigo</small>
                                         <a href="artigo.html" class="btn btn-sm btn-outline-verde">Ler mais</a>
                                     </div>
                                 </div>
                             </div> 
-                        </div>
-                    </section>
-
-                    <section id="sobre" class="mb-5">
-                        <h2 class="section-title">
-                            <i class="bi bi-info-circle"></i>
-                            Sobre o BioAlumnus
-                        </h2>
-                        <div class="content-article">
-                            <div class="row align-items-center">
-                                <div class="col-lg-8">
-                                    <p>O BioAlumnus é uma enciclopédia colaborativa dedicada ao estudo da Biologia. Nosso objetivo é disponibilizar conteúdo científico de qualidade, acessível a estudantes, professores e entusiastas da ciência.</p>
-                                    <p>Todo o conteúdo composto deste site é avaliado e publicado por professores e orientadores da área, visando uma confiabilidade e maior veracidade das informações compostas.</p>
-                                    <h3>Nossa Missão</h3>
-                                    <p>Democratizar o acesso ao conhecimento biológico, fornecendo recursos educacionais gratuitos e de alta qualidade para todos que desejam aprender sobre a vida e seus processos.</p>
-                                </div>
-                                <div class="col-lg-4 text-center">
-                                    <div class="stats-card">
-                                        <i class="bi bi-award"></i>
-                                        <h3>2026</h3>
-                                        <p class="foundation-bioalumnus">Fundação do BioAlumnus</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </section>
                 </main>
