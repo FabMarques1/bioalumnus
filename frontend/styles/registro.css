@@ -1,5 +1,5 @@
-@import url("colors.css");
-@import url("animate.css");
+@import url('colors.css');
+@import url('animate.css');
 
 * {
     scrollbar-width: thin;
@@ -15,7 +15,7 @@ body {
     flex-direction: column;
 }
 
-.login-wrapper {
+.register-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
@@ -23,10 +23,10 @@ body {
     padding: 2rem 1rem;
 }
 
-.login-container {
+.register-container {
     animation: slideup 1s ease-in-out;
     width: 100%;
-    max-width: 960px;
+    max-width: 1000px;
     display: flex;
     border-radius: 1rem;
     overflow: hidden;
@@ -34,7 +34,7 @@ body {
     box-shadow: 0 0 40px rgba(45, 90, 39, 0.15);
 }
 
-.login-visual {
+.register-visual {
     flex: 1;
     background: linear-gradient(160deg, var(--verde-mato-escuro), var(--verde-mato), var(--verde-mato-claro));
     display: flex;
@@ -44,9 +44,10 @@ body {
     padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
+    order: 2;
 }
 
-.login-visual::before {
+.register-visual::before {
     content: '';
     position: absolute;
     width: 300px;
@@ -54,10 +55,10 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     top: -80px;
-    left: -80px;
+    right: -80px;
 }
 
-.login-visual::after {
+.register-visual::after {
     content: '';
     position: absolute;
     width: 200px;
@@ -65,17 +66,21 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.04);
     bottom: -50px;
-    right: -50px;
+    left: -50px;
 }
 
-.login-visual-icon {
+.register-visual-icon {
     font-size: 4rem;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: 1.5rem;
     z-index: 1;
 }
 
-.login-visual h2 {
+.register-visual .register-icon-secondary{
+    zoom: 30%;
+}
+
+.register-visual h2 {
     color: white;
     font-weight: 700;
     font-size: 1.8rem;
@@ -83,7 +88,7 @@ body {
     z-index: 1;
 }
 
-.login-visual p {
+.register-visual p {
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
     max-width: 280px;
@@ -91,26 +96,14 @@ body {
     line-height: 1.6;
 }
 
-.char-counter {
-    font-size: 0.75rem;
-    color: var(--texto-secundario);
-    text-align: left;
-    margin-top: 0.25rem;
-}
-
-.login-visual .login-icon{
-    zoom: 30%;
-}
-
-.login-visual-features {
+.register-visual-features {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0 0;
     z-index: 1;
 }
 
-.login-visual-features li {
-    transition: .3s;
+.register-visual-features li {
     color: rgba(255, 255, 255, 0.85);
     margin-bottom: 0.75rem;
     display: flex;
@@ -119,53 +112,54 @@ body {
     font-size: 0.95rem;
 }
 
-.login-visual-features li i {
+.register-visual-features li i {
     color: rgba(255, 255, 255, 0.95);
     font-size: 1rem;
 }
 
-.login-form-side {
+.register-form-side {
     flex: 1;
     background-color: var(--fundo-card);
-    padding: 3rem 2.5rem;
+    padding: 2.5rem 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    order: 1;
 }
 
-.login-brand {
+.register-brand {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
-.login-brand .login-icon-secondary{
+.register-brand .register-icon{
     zoom: 10%;
 }
 
-.login-brand i {
+.register-brand i {
     font-size: 2rem;
     color: var(--verde-destaque);
 }
 
-.login-brand span {
+.register-brand span {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--verde-destaque);
 }
 
-.login-title {
+.register-title {
     font-size: 1.4rem;
     font-weight: 600;
     color: var(--texto-principal);
     margin-bottom: 0.25rem;
 }
 
-.login-subtitle {
+.register-subtitle {
     color: var(--texto-secundario);
     font-size: 0.95rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-label {
@@ -275,7 +269,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 1.5rem 0;
+    margin: 1.25rem 0;
     color: var(--texto-secundario);
     font-size: 0.85rem;
 }
@@ -306,57 +300,64 @@ body {
     color: var(--verde-destaque);
 }
 
-.login-footer {
+.register-footer {
     background-color: var(--fundo-sidebar);
     border-top: 1px solid var(--borda-sutil);
     text-align: center;
     padding: 1rem;
 }
 
-.login-footer p {
+.register-footer p {
     margin: 0;
     color: var(--texto-secundario);
     font-size: 0.85rem;
 }
 
-.login-footer a {
+.register-footer a {
     color: var(--verde-destaque);
     text-decoration: none;
 }
 
-.login-footer a:hover {
+.register-footer a:hover {
     text-decoration: underline;
 }
 
+.char-counter {
+    font-size: 0.75rem;
+    color: var(--texto-secundario);
+    text-align: right;
+    margin-top: 0.25rem;
+}
+
 @media (max-width: 767.98px) {
-    .login-visual {
+    .register-visual {
         display: none;
     }
 
-    .login-container {
+    .register-container {
         max-width: 440px;
         border-radius: 0.75rem;
     }
 
-    .login-form-side {
+    .register-form-side {
         padding: 2rem 1.5rem;
     }
 
-    .login-wrapper {
+    .register-wrapper {
         padding: 1rem;
     }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .login-visual {
+    .register-visual {
         padding: 2rem 1.5rem;
     }
 
-    .login-form-side {
-        padding: 2.5rem 2rem;
+    .register-form-side {
+        padding: 2rem 1.5rem;
     }
 
-    .login-visual h2 {
+    .register-visual h2 {
         font-size: 1.5rem;
     }
 }
