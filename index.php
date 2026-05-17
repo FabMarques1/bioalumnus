@@ -26,7 +26,7 @@ if(isset($_SESSION['id'])){
     <!-- HEADER -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid px-4">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <i class="bi bi-flower1"></i>
                 BioAlumnus
             </a>
@@ -36,7 +36,7 @@ if(isset($_SESSION['id'])){
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Início</a>
+                        <a class="nav-link active" href="index.php">Início</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sobre</a>
