@@ -1,0 +1,17 @@
+{
+    "name": "fabio/bioalumnus",
+    "autoload": {
+        "psr-4": {
+            "Fabio\\Bioalumnus\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fabricio Henrique Marques Olimpio",
+            "email": "fabricioolimpio734@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
