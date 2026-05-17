@@ -105,7 +105,7 @@ if(isset($_SESSION['id'])){
             </div>
             <p class="sidebar-title">Categorias</p>
             <ul class="sidebar-nav">
-                <li><a href="artigos.html?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
+                <li><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
             </ul>
             <p class="sidebar-title mt-4">Recursos</p>
             <ul class="sidebar-nav">
