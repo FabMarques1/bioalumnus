@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $theme_selection;
 
 if(isset($_GET["theme"])){
@@ -11,7 +13,7 @@ if(isset($_GET["theme"])){
 if(isset($_GET['search'])){
     $search = $_GET['search'];
 } else{
-    $search = "Temas";
+    $search = "?";
 }
 
 switch($theme){
@@ -31,12 +33,13 @@ switch($theme){
 
 // Login
 
-if(isset($_SESSION['id'])){
-
+if(isset($_SESSION['auth'])){
+    $user_name = $_SESSION['username'];
+    $user_profile = $_SESSION['user'];
 } else{
     $user_photo = "frontend/assets/icons/incognito.svg";
     $user_name = "Anônimo";
-    $user_profile = "@anonimo";
+    $user_profile = "Anônimo";
 }
 
 ?>
@@ -88,14 +91,14 @@ if(isset($_SESSION['id'])){
                 <div class="dropdown ms-3">
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 38px; height: 38px; color: white; object-fit: cover; border: 2px solid var(--verde-mato);">
-                        <span class="d-none d-lg-inline" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
+                        <span class="d-none d-lg-inline" style="color: var(--texto-principal);"><?php echo $user_profile; ?></span>
                     </a>
-                    <?php if(isset($_SESSION['id'])): ?>
+                    <?php if(isset($_SESSION['auth'])): ?>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-gear me-2"></i>Configurações</a></li>
                             <li><hr class="dropdown-divider" style="border-color: var(--borda-sutil);"></li>
-                            <li><a class="dropdown-item" href="#" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                            <li><a class="dropdown-item" href="backend/src/quit.php" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
                     <?php else: ?>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">

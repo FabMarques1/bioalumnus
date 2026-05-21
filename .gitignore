@@ -1,2 +1,5 @@
 /vendor/
 .env
+backend/assets/js/game.js
+mock_dados_lupa.json
+lupa-remaster.html

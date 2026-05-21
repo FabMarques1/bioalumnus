@@ -1,11 +1,14 @@
 <?php
 
-if(isset($_SESSION['id'])){
+session_start();
 
+if(isset($_SESSION['auth'])){
+    $user_name = $_SESSION['username'];
+    $user_profile = $_SESSION['user'];
 } else{
     $user_photo = "frontend/assets/icons/incognito.svg";
     $user_name = "Anônimo";
-    $user_profile = "@anonimo";
+    $user_profile = "Anônimo";
 }
 
 
@@ -58,14 +61,14 @@ if(isset($_SESSION['id'])){
                 <div class="dropdown ms-3">
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 38px; height: 38px; color: white; object-fit: cover; border: 2px solid var(--verde-mato);">
-                        <span class="d-none d-lg-inline" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
+                        <span class="d-none d-lg-inline" style="color: var(--texto-principal);"><?php echo $user_profile; ?></span>
                     </a>
-                    <?php if(isset($_SESSION['id'])): ?>
+                    <?php if(isset($_SESSION['auth'])): ?>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-gear me-2"></i>Configurações</a></li>
                             <li><hr class="dropdown-divider" style="border-color: var(--borda-sutil);"></li>
-                            <li><a class="dropdown-item" href="#" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                            <li><a class="dropdown-item" href="backend/src/quit.php" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
                     <?php else: ?>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
@@ -92,7 +95,7 @@ if(isset($_SESSION['id'])){
                 <div class="d-flex align-items-center mb-3 p-2 rounded" style="background-color: rgba(45, 90, 39, 0.15); border: 1px solid var(--borda-sutil);">
                     <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 42px; height: 42px; object-fit: cover; border: 2px solid var(--verde-mato);">
                     <div>
-                        <?php if(isset($_SESSION['id'])): ?>
+                        <?php if(isset($_SESSION['auth'])): ?>
                             <span class="d-block fw-semibold" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
                             <small style="color: var(--texto-secundario);"><?php echo $user_profile; ?></small>
                         <?php else: ?>
@@ -154,8 +157,18 @@ if(isset($_SESSION['id'])){
                     <section class="hero-section">
                         <div class="row align-items-center">
                             <div class="col-lg-6 mb-4 mb-lg-0">
-                                <h1>Bem-vindo ao <span>BioAlumnus</span></h1>
-                                <p>Sua enciclopédia colaborativa de Biologia. Explore o fascinante mundo da vida através de artigos científicos detalhados, ilustrações e recursos educacionais.</p>
+                                <h1>Bem-vindo 
+                                    <?php if(!isset($_SESSION['auth'])): ?> 
+                                        ao <span>BioAlumnus</span>
+                                    <?php else: ?>
+                                        <?php echo "<br><span>" . strtok($user_name, " ") . "</span>"; ?>
+                                    <?php endif; ?>
+                                </h1>
+                                <?php if(!isset($_SESSION['auth'])): ?>
+                                    <p>Sua enciclopédia colaborativa de Biologia. Explore o fascinante mundo da vida através de artigos científicos detalhados, ilustrações e recursos educacionais.</p>
+                                <?php else: ?>
+                                    <p>Por onde devemos começar sua pesquisa diária ou exploração biológica?</p>
+                                <?php endif; ?>
                                 <div class="mt-4">
                                     <a href="artigos.php" class="btn btn-verde btn-md me-2">
                                         <i class="bi bi-book me-2"></i>Explorar Artigos

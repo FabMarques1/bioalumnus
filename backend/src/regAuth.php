@@ -2,7 +2,7 @@
 
 session_start();
 
-require "../config/database.php";
+require_once "../config/database.php";
 
 // OBTENÇÃO DOS DADOS
 $fullName = trim($_POST['fullName']);

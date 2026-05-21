@@ -1,11 +1,14 @@
 <?php
 
-if(isset($_SESSION['id'])){
+session_start();
 
+if(isset($_SESSION['auth'])){
+    $user_name = $_SESSION['username'];
+    $user_profile = $_SESSION['user'];
 } else{
     $user_photo = "frontend/assets/icons/incognito.svg";
     $user_name = "Anônimo";
-    $user_profile = "@anonimo";
+    $user_profile = "Anônimo";
 }
 
 ?>
@@ -56,14 +59,14 @@ if(isset($_SESSION['id'])){
                 <div class="dropdown ms-3">
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 38px; height: 38px; color: white; object-fit: cover; border: 2px solid var(--verde-mato);">
-                        <span class="d-none d-lg-inline" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
+                        <span class="d-none d-lg-inline" style="color: var(--texto-principal);"><?php echo $user_profile; ?></span>
                     </a>
-                    <?php if(isset($_SESSION['id'])): ?>
+                    <?php if(isset($_SESSION['auth'])): ?>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-gear me-2"></i>Configurações</a></li>
                             <li><hr class="dropdown-divider" style="border-color: var(--borda-sutil);"></li>
-                            <li><a class="dropdown-item" href="#" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                            <li><a class="dropdown-item" href="backend/src/quit.php" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
                     <?php else: ?>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
@@ -89,7 +92,7 @@ if(isset($_SESSION['id'])){
                 <div class="d-flex align-items-center mb-3 p-2 rounded" style="background-color: rgba(45, 90, 39, 0.15); border: 1px solid var(--borda-sutil);">
                     <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 42px; height: 42px; object-fit: cover; border: 2px solid var(--verde-mato);">
                     <div>
-                        <?php if(isset($_SESSION['id'])): ?>
+                        <?php if(isset($_SESSION['auth'])): ?>
                             <span class="d-block fw-semibold" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
                             <small style="color: var(--texto-secundario);"><?php echo $user_profile; ?></small>
                         <?php else: ?>
@@ -162,9 +165,9 @@ if(isset($_SESSION['id'])){
                                         </div>
                                         <h5 class="card-title">Seja bem-vindo ao BioAlumnus!</h5>
                                         <p style="text-align: justify;" class="card-text">Olá! Boas vindas ao <b><span style="color: var(--verde-destaque);">BioAlumnus</span> aluno ou docente.</b></p>
-                                        <p style="text-align: justify;" class="card-text">Vejo que deve estar se perguntando: para o que é essa plataforma? O que de fato há de conter nessa nova área da tecnologia? O que é tudo isso? Pois bem, <b>não precisa temer!</b> Vamos todos por partes para entender como que funciona de fato todo o esquema por aqui, cada tópico e cada área para navegar sem dificuldade. Vamos lá?</p>
+                                        <p style="text-align: justify; line-height: 2;" class="card-text">Vejo que deve estar se perguntando: para o que é essa plataforma? O que de fato há de conter nessa nova área da tecnologia? O que é tudo isso? Pois bem, <b>não precisa temer!</b> Vamos todos por partes para entender como que funciona de fato todo o esquema por aqui, cada tópico e cada área para navegar sem dificuldade. Vamos lá?</p>
                                         <h4 style="color: var(--verde-destaque);"><b>O que é o BioAlumnus?</b></h4>
-                                        <p style="text-align: justify;" class="card-text">Produzido inicialmente como um projeto escolar, o BioAlumnus <i>(Vida + Aluno em latim)</i> veio como uma proposta nova e interativa para o ensino na questão das ciências da vida com a tecnologia, trazendo uma ideia incentivadora para os jovens estudarem e absorverem, de forma memorável, conteúdos de biologia que são ensinados em âmbito escolar e contexto disciplinar, aprimorando e aprofundando seu conhecimento com base de orientadores e professores verificados que trazem informações verificadas para um ambiente mais seguro e com dados confiáveis.</p>
+                                        <p style="text-align: justify; line-height: 2;" class="card-text">Produzido inicialmente como um projeto escolar, o BioAlumnus <i>(Vida + Aluno em latim)</i> veio como uma proposta nova e interativa para o ensino na questão das ciências da vida com a tecnologia, trazendo uma ideia incentivadora para os jovens estudarem e absorverem, de forma memorável, conteúdos de biologia que são ensinados em âmbito escolar e contexto disciplinar, aprimorando e aprofundando seu conhecimento com base de orientadores e professores verificados que trazem informações verificadas para um ambiente mais seguro e com dados confiáveis.</p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between align-items-center">
                                         <small class="text-muted"><i class="bi bi-calendar me-1"></i>12 Mai 2024</small>

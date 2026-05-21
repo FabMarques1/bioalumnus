@@ -37,12 +37,12 @@ require "backend/config/database.php";
                 </div>
                 <h1 class="login-title">Entrar na sua conta</h1>
                 <p class="login-subtitle">Preencha seus dados para acessar a plataforma</p>
-                <form onsubmit="return validateLogin()" novalidate>
+                <form method="POST" action="backend/src/loginAuth.php" onsubmit="return validateLogin()" novalidate>
                     <div class="mb-3">
-                        <label for="user" class="form-label">Usuário ou E-mail</label>
+                        <label for="user" class="form-label">Usuário</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-person"></i></span>
-                            <input type="text" class="form-control" id="user" placeholder="Digite seu usuário ou e-mail" maxlength="255" required>
+                            <input name="user" type="text" class="form-control" id="user" placeholder="Digite seu usuário" maxlength="255" required>
                         </div>
                         <div class="char-counter"><span id="userCount">0</span>/255 caracteres</div>
                     </div>
@@ -50,7 +50,7 @@ require "backend/config/database.php";
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group position-relative">
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            <input type="password" class="form-control pe-5" id="password" placeholder="Digite sua senha" maxlength="45" required>
+                            <input name="pass" type="password" class="form-control pe-5" id="password" placeholder="Digite sua senha" maxlength="45" required>
                             <button type="button" class="password-toggle" onclick="togglePassword()">
                                 <i class="bi bi-eye" id="toggleIcon"></i>
                             </button>
@@ -126,6 +126,26 @@ require "backend/config/database.php";
                 title: '<?= $_SESSION['success'] ?>'
             });
         <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION['error'])): ?>
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: "var(--verde-mato)",
+                color: "white",
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+            }
+            }).fire({
+                icon: "error",
+                title: '<?= $_SESSION['error'] ?>'
+            });
+        <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
     </script>
 </body>
