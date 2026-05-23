@@ -19,6 +19,7 @@ $query = $conn->prepare(
         users.userprofile,
         users.email,
         GROUP_CONCAT(tel.phone SEPARATOR ', '),
+        users.biografia,
         users.cargo
     FROM tbl_usuarios users
     LEFT JOIN tbl_telefone tel
