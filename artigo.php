@@ -93,14 +93,16 @@ if(isset($_SESSION['auth'])){
             <div class="p-3">
                 <div class="d-flex align-items-center mb-3 p-2 rounded" style="background-color: rgba(45, 90, 39, 0.15); border: 1px solid var(--borda-sutil);">
                     <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 42px; height: 42px; object-fit: cover; border: 2px solid var(--verde-mato);">
-                    <div>
-                        <?php if(isset($_SESSION['auth'])): ?>
-                            <span class="d-block fw-semibold" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
-                            <small style="color: var(--texto-secundario);"><?php echo $user_profile; ?></small>
-                        <?php else: ?>
-                            <a href="login.php"><span class="d-block fw-semibold" style="color: var(--texto-principal);">Fazer login</span></a>
-                        <?php endif; ?>
-                    </div>
+                    <a href="profile.php?user=<?php echo $user_profile; ?>">
+                        <div>
+                            <?php if(isset($_SESSION['auth'])): ?>
+                                <span class="d-block fw-semibold" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
+                                <small style="color: var(--texto-secundario);"><?php echo $user_profile; ?></small>
+                            <?php else: ?>
+                                <a href="login.php"><span class="d-block fw-semibold" style="color: var(--texto-principal);">Fazer login</span></a>
+                            <?php endif; ?>
+                        </div>
+                    </a>
                 </div>
                 <input class="form-control mb-3" type="search" placeholder="Buscar na wiki...">
             </div>
