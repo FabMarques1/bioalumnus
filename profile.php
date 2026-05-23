@@ -182,6 +182,7 @@ if(!isset($_SESSION['auth'])){
         <div class="offcanvas-body p-0">
             <div class="p-3">
                 <!-- Usuário no mobile -->
+                <a href="profile.php?user=<?php echo $user_profile; ?>">
                 <div class="d-flex align-items-center mb-3 p-2 rounded offcanvas-user-card">
                     <img
                         src="<?php echo $user_photo; ?>"
@@ -193,6 +194,7 @@ if(!isset($_SESSION['auth'])){
                         <small class="text-secundario"><?php echo $user_profile; ?></small>
                     </div>
                 </div>
+                </a>
                 <input class="form-control mb-3" type="search" placeholder="Buscar na wiki..." aria-label="Buscar">
             </div>
 
