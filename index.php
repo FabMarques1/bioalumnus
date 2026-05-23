@@ -96,7 +96,7 @@ if(isset($_SESSION['auth'])){
                 
                 <div class="d-flex align-items-center mb-3 p-2 rounded" style="background-color: rgba(45, 90, 39, 0.15); border: 1px solid var(--borda-sutil);">
                     <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 42px; height: 42px; object-fit: cover; border: 2px solid var(--verde-mato);">
-                    <a href="profile.php?user=<?php echo $user_profile; ?>">
+                    <a style="text-decoration: none;" href="profile.php?user=<?php echo $user_profile; ?>">
                         <div>
                             <?php if(isset($_SESSION['auth'])): ?>
                                 <span class="d-block fw-semibold" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
