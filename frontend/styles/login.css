@@ -133,6 +133,14 @@ body {
     justify-content: center;
 }
 
+.invisible{
+    pointer-events: none;
+    visibility: hidden;
+    margin: 0;
+    display: none;
+    opacity: 0;
+}
+
 .login-brand {
     display: flex;
     align-items: center;

@@ -4,34 +4,41 @@ require_once "backend/src/db_queries.php";
 
 session_start();
 
-if(!isset($_GET['id']) || empty($_GET['id'])){
+if(!isset($_GET['user']) || empty($_GET['user'])){
     header("Location: index.php");
     exit;
 }
 
+$user_id = 0;
+
 $user_name = $_SESSION['username'];
 $user_profile = $_SESSION['user'];
-$user_id = $_GET['id'];
+$user_photo = $_SESSION['photo'];
+$user_name_url = $_GET['user'];
 
 $query = $conn->prepare(
     "SELECT
+        users.id,
         users.username,
         users.userprofile,
         users.email,
         GROUP_CONCAT(tel.phone SEPARATOR ', '),
         users.biografia,
+        users.icon,
         users.cargo
     FROM tbl_usuarios users
     LEFT JOIN tbl_telefone tel
     ON users.id = tel.userprofile
-    WHERE users.id = ?
+    WHERE users.userprofile = ?
     GROUP BY 
+        users.id,
         users.username,
         users.userprofile,
         users.email,
+        users.icon,
         users.cargo"
 );
-$query->bind_param("i", $user_id);
+$query->bind_param("s", $user_name_url);
 $query->execute();
 
 $result = $query->get_result();
@@ -40,11 +47,15 @@ $row = $result->fetch_assoc();
 
 $user_tel_profile = "indefinido";
 
-$user_name_profile = $row['username'];
-$user_tag_profile = $row['userprofile'];
-$user_email_profile = $row['email'];
-$user_bio = $row['biografia'];
-$cargo = $row['cargo'];
+if($result->num_rows > 0){
+    $user_id = $row['id'];
+    $user_name_profile = $row['username'];
+    $user_tag_profile = $row['userprofile'];
+    $user_email_profile = $row['email'];
+    $user_bio = $row['biografia'];
+    $user_photo_profile = $row['icon'];
+    $cargo = $row['cargo'];
+}
 
 $query->close();
 
@@ -131,7 +142,7 @@ if(!isset($_SESSION['auth'])){
                         aria-label="Menu do usuário"
                     >
                         <img
-                            src="frontend/assets/icons/avatar.png"
+                            src="<?php echo $user_photo; ?>"
                             alt="Foto de perfil do usuário"
                             class="profile-avatar-nav rounded-circle me-2"
                         >
@@ -139,7 +150,7 @@ if(!isset($_SESSION['auth'])){
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end custom-dropdown">
                         <li>
-                            <a class="dropdown-item" href="profile.php?id=<?php echo $_SESSION['id']; ?>" aria-current="page">
+                            <a class="dropdown-item" href="profile.php?user=<?php echo $user_profile; ?>" aria-current="page">
                                 <i class="bi bi-person me-2" aria-hidden="true"></i>Meu Perfil
                             </a>
                         </li>
@@ -249,7 +260,7 @@ if(!isset($_SESSION['auth'])){
                             <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-end gap-3 mb-3">
                                 <div class="profile-avatar-wrapper">
                                     <img
-                                        src="frontend/assets/icons/avatar.png"
+                                        src="<?php echo $user_photo_profile; ?>"
                                         alt="Foto de perfil de <?php echo strtok($user_name, " "); ?>"
                                         class="profile-avatar"
                                         id="preview-avatar-display"
@@ -518,7 +529,7 @@ if(!isset($_SESSION['auth'])){
                                                     <label class="form-label" id="avatar-label">Foto de Perfil</label>
                                                     <div class="d-flex align-items-center gap-3 flex-wrap" aria-labelledby="avatar-label">
                                                         <img
-                                                            src="frontend/assets/icons/avatar.png"
+                                                            src="<?php echo $user_photo_profile; ?>"
                                                             alt="Preview da foto de perfil"
                                                             class="avatar-preview rounded-circle"
                                                             id="avatar-preview"

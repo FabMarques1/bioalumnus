@@ -14,7 +14,7 @@ require "backend/config/database.php";
     <title>BioAlumnus - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="frontend/styles/login.css?">
+    <link rel="stylesheet" href="frontend/styles/login.css">
     <link rel="icon" href="frontend/assets/icons/icon.png">
 </head>
 <body>
@@ -39,6 +39,16 @@ require "backend/config/database.php";
                 <p class="login-subtitle">Preencha seus dados para acessar a plataforma</p>
                 <form method="POST" action="backend/src/loginAuth.php" onsubmit="return validateLogin()" novalidate>
                     <div class="mb-3">
+                        <label for="user" class="form-label">Logar como:</label>
+                        <div class="input-group">
+                            <select name="login-was" class="form-control" id="loginWas">
+                                <option value="aluno" selected>Aluno</option>
+                                <option value="professor">Professor</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
                         <label for="user" class="form-label">Usuário</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-person"></i></span>
@@ -57,11 +67,15 @@ require "backend/config/database.php";
                         </div>
                         <div class="char-counter"><span id="passwordCount">0</span>/45 caracteres</div>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Lembrar de mim</label>
+                    <div class="mb-3 professor-id invisible">
+                        <label for="accessCode" class="form-label">Código de acesso</label>
+                        <div class="input-group position-relative">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input name="accessCode" type="text" class="form-control pe-5" id="accessCode" placeholder="Digite seu código de acesso" maxlength="45" required>
                         </div>
+                        <div class="char-counter"><span id="accessCodeCount">0</span>/45 caracteres</div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
                         <a href="#" class="link-verde" style="font-size: 0.9rem;">Esqueceu a senha?</a>
                     </div>
                     <button type="submit" class="btn btn-verde w-100 mb-3">
@@ -85,6 +99,29 @@ require "backend/config/database.php";
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="backend/assets/js/auth.js?"></script>
     <script>
+        const select = document.querySelector("#loginWas");
+        const professor_id = document.querySelector(".professor-id");
+
+        select.addEventListener("change", function () {
+            switch(select.value){
+                case 'aluno':
+                    console.log('aluno selecionado');
+                    professor_id.classList.add("invisible");
+                    break;
+
+                case 'professor':
+                    console.log('professor selecionado');
+                    professor_id.classList.remove("invisible");
+                    break;
+
+                default:
+                    console.log('nenhum caso selecionado');
+            }
+        });
+        
+    </script>
+
+    <script>
         function togglePassword() {
             const input = document.getElementById('password');
             const icon = document.getElementById('toggleIcon');
@@ -105,6 +142,10 @@ require "backend/config/database.php";
 
         document.getElementById('password').addEventListener('input', function() {
             document.getElementById('passwordCount').textContent = this.value.length;
+        });
+
+        document.getElementById('accessCode').addEventListener('input', function() {
+            document.getElementById('accessCodeCount').textContent = this.value.length;
         });
     </script>
     <script>

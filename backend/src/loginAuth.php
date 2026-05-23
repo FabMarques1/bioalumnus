@@ -11,6 +11,9 @@ if(!isset($_POST['user'], $_POST['pass'])){
 
 $user = strtolower(trim($_POST['user']));
 $pass = $_POST['pass'];
+if(isset($_POST['accessCode'])){
+    $cod_professor = strtolower($_POST['accessCode']);
+}
 
 $stmt = $conn->prepare(
     "SELECT
@@ -22,6 +25,7 @@ $stmt = $conn->prepare(
         GROUP_CONCAT(tel.phone SEPARATOR ', ') AS phone,
         users.pass,
         users.biografia,
+        users.icon,
         users.createdAt
     FROM tbl_usuarios users
     LEFT JOIN tbl_telefone tel
@@ -35,6 +39,7 @@ $stmt = $conn->prepare(
         users.email,
         users.pass,
         users.biografia,
+        users.icon,
         users.createdAt"
 );
 $stmt->bind_param("s", $user);
