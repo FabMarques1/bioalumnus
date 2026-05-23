@@ -28,9 +28,9 @@ $passHash = password_hash($password, PASSWORD_ARGON2ID);
 
 $search = $conn->prepare(
     "SELECT
-    user, email
+    userprofile, email
     FROM tbl_usuarios
-    WHERE user = ? OR email = ?"
+    WHERE userprofile = ? OR email = ?"
 );
 
 $search->bind_param("ss", $user, $email);
@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
 
     
     $query = $conn->prepare(
-        "INSERT INTO tbl_usuarios (username, user, email, pass)
+        "INSERT INTO tbl_usuarios (username, userprofile, email, pass)
         VALUES (?, ?, ?, ?)"
     );
     $query->bind_param("ssss", $fullName, $user, $email, $passHash);
