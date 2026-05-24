@@ -1130,6 +1130,10 @@ footer a:hover {
         padding: 1rem 0.75rem;
     }
 
+    .profile-username{
+        text-align: center;
+    }
+
     .profile-name {
         font-size: 1.2rem;
     }
