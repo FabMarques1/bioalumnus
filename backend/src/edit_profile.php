@@ -25,19 +25,19 @@ if(empty($user_name) || empty($user_profile) || empty($email) || empty($biografi
     exit;
 }
 
-if(strlen($user_name) <= 8 || strlen($user_name) >= 200){
+if(strlen($user_name) < 8 || strlen($user_name) >= 200){
     $_SESSION['error'] = "Seu nome completo deve ter no mínimo 8 caracteres.";
     header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
-if(strlen($user_profile) <= 8 || strlen($user_profile) >= 45){
+if(strlen($user_profile) < 8 || strlen($user_profile) >= 45){
     $_SESSION['error'] = "Seu nome de usuário deve ter no mínimo 8 caracteres.";
     header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
-if(strlen($biografia) <= 1){
+if(strlen($biografia) < 1){
     $_SESSION['error'] = "Sua biografia deve ter no mínimo 1 caractere.";
     header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
