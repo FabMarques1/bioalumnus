@@ -5,11 +5,13 @@ require_once "../config/database.php";
 session_start();
 
 $id = $_SESSION['id'];
+$user = $_SESSION['user'];
 $user_name = trim($_POST['user_name']);
 $user_profile = strtolower(trim($_POST['user_profile']));
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $biografia = htmlspecialchars($_POST['biografia']);
+
 
 if(!isset($_SESSION['auth'])) {
     $_SESSION['error'] = "Seu login expirou. Entre novamente.";
@@ -19,31 +21,31 @@ if(!isset($_SESSION['auth'])) {
 
 if(empty($user_name) || empty($user_profile) || empty($email) || empty($biografia)) {
     $_SESSION['error'] = "Nenhum dos campos devem estar vazio (exceto telefone).";
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
 if(strlen($user_name) <= 8 || strlen($user_name) >= 200){
     $_SESSION['error'] = "Seu nome completo deve ter no mínimo 8 caracteres.";
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
 if(strlen($user_profile) <= 8 || strlen($user_profile) >= 45){
     $_SESSION['error'] = "Seu nome de usuário deve ter no mínimo 8 caracteres.";
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
 if(strlen($biografia) <= 1){
     $_SESSION['error'] = "Sua biografia deve ter no mínimo 1 caractere.";
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['error'] = "Por favor, insira um endereço de email real.";
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 
@@ -144,7 +146,7 @@ try {
     // $_SESSION['telefone'] = ;
     $_SESSION['biografia'] = $biografia;
 
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 
 } catch (Exception $e) {
@@ -153,7 +155,7 @@ try {
 
     $_SESSION['error'] = $e->getMessage();
 
-    header("Location: ../../profile.php?id=" . urlencode($id));
+    header("Location: ../../profile.php?user=" . urlencode($user));
     exit;
 }
 

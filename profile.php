@@ -551,7 +551,7 @@ if(!isset($_SESSION['auth'])){
                                         <div class="content-article">
 
                                             <!-- Foto de perfil com preview -->
-                                            <form method="POST" action="backend/src/edit.php" onsubmit="return validateUpdate()" novalidate>
+                                            <form method="POST" action="backend/src/edit_profile.php" onsubmit="return validateUpdate()" novalidate>
                                                 <div class="mb-4">
                                                     <label class="form-label" id="avatar-label">Foto de Perfil</label>
                                                     <div class="d-flex align-items-center gap-3 flex-wrap" aria-labelledby="avatar-label">
@@ -684,83 +684,84 @@ if(!isset($_SESSION['auth'])){
                                         <div class="content-article">
 
                                             <!-- Senha atual -->
-                                            <div class="mb-3">
-                                                <label for="current-password" class="form-label">Senha Atual <span class="required-mark" aria-hidden="true">*</span></label>
-                                                <div class="input-group">
-                                                    <input
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="current-password"
-                                                        name="current_password"
-                                                        placeholder="••••••••"
-                                                        autocomplete="current-password"
-                                                        aria-required="true"
-                                                    >
-                                                    <button
-                                                        class="btn btn-input-toggle"
-                                                        type="button"
-                                                        aria-label="Mostrar/ocultar senha atual"
-                                                        onclick="togglePassword('current-password', this)"
-                                                    >
-                                                        <i class="bi bi-eye" aria-hidden="true"></i>
-                                                    </button>
+                                            <form action="backend/src/edit_password.php" method="POST">
+                                                <div class="mb-3">
+                                                    <label for="current-password" class="form-label">Senha Atual <span class="required-mark" aria-hidden="true">*</span></label>
+                                                    <div class="input-group">
+                                                        <input
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="current-password"
+                                                            name="current_password"
+                                                            placeholder="••••••••"
+                                                            autocomplete="current-password"
+                                                            aria-required="true"
+                                                        >
+                                                        <button
+                                                            class="btn btn-input-toggle"
+                                                            type="button"
+                                                            aria-label="Mostrar/ocultar senha atual"
+                                                            onclick="togglePassword('current-password', this)"
+                                                        >
+                                                            <i class="bi bi-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Nova senha -->
-                                            <div class="mb-3">
-                                                <label for="new-password" class="form-label">Nova Senha <span class="required-mark" aria-hidden="true">*</span></label>
-                                                <div class="input-group">
-                                                    <input
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="new-password"
-                                                        name="new_password"
-                                                        placeholder="••••••••"
-                                                        autocomplete="new-password"
-                                                        minlength="8"
-                                                        aria-required="true"
-                                                        aria-describedby="password-strength-hint"
-                                                    >
-                                                    <button
-                                                        class="btn btn-input-toggle"
-                                                        type="button"
-                                                        aria-label="Mostrar/ocultar nova senha"
-                                                        onclick="togglePassword('new-password', this)"
-                                                    >
-                                                        <i class="bi bi-eye" aria-hidden="true"></i>
-                                                    </button>
+                                                <!-- Nova senha -->
+                                                <div class="mb-3">
+                                                    <label for="new-password" class="form-label">Nova Senha <span class="required-mark" aria-hidden="true">*</span></label>
+                                                    <div class="input-group">
+                                                        <input
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="new-password"
+                                                            name="new_password"
+                                                            placeholder="••••••••"
+                                                            autocomplete="new-password"
+                                                            minlength="8"
+                                                            aria-required="true"
+                                                            aria-describedby="password-strength-hint"
+                                                        >
+                                                        <button
+                                                            class="btn btn-input-toggle"
+                                                            type="button"
+                                                            aria-label="Mostrar/ocultar nova senha"
+                                                            onclick="togglePassword('new-password', this)"
+                                                        >
+                                                            <i class="bi bi-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <small class="form-text text-muted" id="password-strength-hint">Mínimo de 8 caracteres. Use letras, números e símbolos.</small>
                                                 </div>
-                                                <small class="form-text text-muted" id="password-strength-hint">Mínimo de 8 caracteres. Use letras, números e símbolos.</small>
-                                            </div>
 
-                                            <!-- Confirmar nova senha -->
-                                            <div class="mb-4">
-                                                <label for="confirm-password" class="form-label">Confirmar Nova Senha <span class="required-mark" aria-hidden="true">*</span></label>
-                                                <div class="input-group">
-                                                    <input
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="confirm-password"
-                                                        name="confirm_password"
-                                                        placeholder="••••••••"
-                                                        autocomplete="new-password"
-                                                    >
-                                                    <button
-                                                        class="btn btn-input-toggle"
-                                                        type="button"
-                                                        aria-label="Mostrar/ocultar confirmação de senha"
-                                                        onclick="togglePassword('confirm-password', this)"
-                                                    >
-                                                        <i class="bi bi-eye" aria-hidden="true"></i>
-                                                    </button>
+                                                <!-- Confirmar nova senha -->
+                                                <div class="mb-4">
+                                                    <label for="confirm-password" class="form-label">Confirmar Nova Senha <span class="required-mark" aria-hidden="true">*</span></label>
+                                                    <div class="input-group">
+                                                        <input
+                                                            type="password"
+                                                            class="form-control"
+                                                            id="confirm-password"
+                                                            name="confirm_password"
+                                                            placeholder="••••••••"
+                                                            autocomplete="new-password"
+                                                        >
+                                                        <button
+                                                            class="btn btn-input-toggle"
+                                                            type="button"
+                                                            aria-label="Mostrar/ocultar confirmação de senha"
+                                                            onclick="togglePassword('confirm-password', this)"
+                                                        >
+                                                            <i class="bi bi-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="invalid-feedback">As senhas não coincidem.</div>
                                                 </div>
-                                                <div class="invalid-feedback">As senhas não coincidem.</div>
-                                            </div>
-
                                             <button type="submit" class="btn btn-verde" aria-label="Confirmar alteração de senha">
                                                 <i class="bi bi-shield-lock me-2" aria-hidden="true"></i>Atualizar Senha
                                             </button>
+                                            </form>
                                         </div>
                                     </section>
                                 </div>
@@ -901,31 +902,34 @@ if(!isset($_SESSION['auth'])){
                         </h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
-                    <div class="modal-body">
-                        <p id="deleteModalDesc" class="text-secundario">
-                            Esta ação é <strong class="text-danger-bio">permanente e irreversível</strong>. Todos os seus artigos, comentários e dados serão deletados.
-                        </p>
-                        <div class="mb-3">
-                            <label for="confirm-delete-input" class="form-label">
-                                Para confirmar, digite <strong class="text-destaque"><?php echo $user_profile; ?></strong> abaixo:
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="confirm-delete-input"
-                                placeholder="<?php echo $user_profile; ?>"
-                                aria-describedby="deleteModalDesc"
-                            >
+                    <form action="backend/src/delete.php" method="POST">
+                        <div class="modal-body">
+                            <p id="deleteModalDesc" class="text-secundario">
+                                Esta ação é <strong class="text-danger-bio">permanente e irreversível</strong>. Todos os seus artigos, comentários e dados serão deletados.
+                            </p>
+                            <div class="mb-3">
+                                <label for="confirm-delete-input" class="form-label">
+                                    Para confirmar, digite <strong class="text-destaque"><?php echo $user_profile; ?></strong> abaixo:
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="confirm-delete-input"
+                                    name="user"
+                                    placeholder="<?php echo $user_profile; ?>"
+                                    aria-describedby="deleteModalDesc"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer delete-modal-footer">
-                        <button type="button" class="btn btn-outline-verde" data-bs-dismiss="modal">
-                            <i class="bi bi-x-lg me-2" aria-hidden="true"></i>Cancelar
-                        </button>
-                        <button type="button" class="btn btn-danger" id="btn-confirm-delete" disabled aria-label="Confirmar exclusão permanente da conta">
-                            <i class="bi bi-trash me-2" aria-hidden="true"></i>Excluir Permanentemente
-                        </button>
-                    </div>
+                        <div class="modal-footer delete-modal-footer">
+                            <button type="button" class="btn btn-outline-verde" data-bs-dismiss="modal">
+                                <i class="bi bi-x-lg me-2" aria-hidden="true"></i>Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-danger" id="btn-confirm-delete" disabled aria-label="Confirmar exclusão permanente da conta">
+                                <i class="bi bi-trash me-2" aria-hidden="true"></i>Excluir Permanentemente
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
