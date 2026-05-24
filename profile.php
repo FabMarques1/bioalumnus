@@ -27,10 +27,13 @@ $query = $conn->prepare(
         users.icon,
         users.cargo,
         users.show_email,
-        users.show_profile
+        users.show_profile,
+        COUNT(art.id) as artigos
     FROM tbl_usuarios users
     LEFT JOIN tbl_telefone tel
-    ON users.id = tel.userprofile
+    ON users.id = tel.id_usuario
+    LEFT JOIN tbl_artigos art
+    ON art.id_usuario = users.id
     WHERE users.userprofile = ?
     GROUP BY 
         users.id,
@@ -166,6 +169,9 @@ if(!isset($_SESSION['auth'])){
                                 <i class="bi bi-gear me-2" aria-hidden="true"></i>Configurações
                             </a>
                         </li>
+                        <?php if($cargo > 1): ?>
+                            <li><a class="dropdown-item" href="criar-artigo.php" style="color: var(--texto-principal);"><i class="bi bi-newspaper"></i> Criar artigo</a></li>
+                        <?php endif; ?>
                         <li><hr class="dropdown-divider custom-divider" role="separator"></li>
                         <li>
                             <a class="dropdown-item item-danger" href="backend/src/quit.php">
@@ -188,21 +194,25 @@ if(!isset($_SESSION['auth'])){
         </div>
         <div class="offcanvas-body p-0">
             <div class="p-3">
-                <!-- Usuário no mobile -->
-                <a style="text-decoration: none;" href="profile.php?user=<?php echo $user_profile; ?>">
-                    <div class="d-flex align-items-center mb-3 p-2 rounded offcanvas-user-card">
-                        <img
-                            src="<?php echo $user_photo; ?>"
-                            alt="Foto de perfil"
-                            class="rounded-circle me-2 offcanvas-avatar"
-                        >
+                
+                <div class="d-flex align-items-center mb-3 p-2 rounded" style="background-color: rgba(45, 90, 39, 0.15); border: 1px solid var(--borda-sutil);">
+                    <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 42px; height: 42px; object-fit: cover; border: 2px solid var(--verde-mato);">
+                    <a style="text-decoration: none;" href="profile.php?user=<?php echo $user_profile; ?>">
                         <div>
-                            <span class="d-block fw-semibold text-principal"><?php echo $user_name; ?></span>
-                            <small class="text-secundario"><?php echo $user_profile; ?></small>
+                            <?php if(isset($_SESSION['auth'])): ?>
+                                <span class="d-block fw-semibold" style="color: var(--texto-principal);"><?php echo $user_name; ?></span>
+                                <small style="color: var(--texto-secundario);"><?php echo $user_profile; ?></small>
+                            <?php else: ?>
+                                <a href="login.php"><span class="d-block fw-semibold" style="color: var(--texto-principal);">Fazer login</span></a>
+                            <?php endif; ?>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                <a href="backend/src/quit.php">
+                    <button class="btn btn-danger opacity-75 col-12"><i class="bi bi-box-arrow-right me-2"></i>Sair</button>  
                 </a>
-                <input class="form-control mb-3" type="search" placeholder="Buscar na wiki..." aria-label="Buscar">
+                <hr>
+                <input class="form-control mb-3" type="search" placeholder="Buscar na wiki...">
             </div>
 
             <p class="sidebar-title">Categorias</p>
@@ -392,15 +402,47 @@ if(!isset($_SESSION['auth'])){
                                         </h2>
                                         <div class="content-article p-0 overflow-hidden">
                                             <ol class="activity-timeline list-unstyled mb-0" aria-label="Últimas atividades">
-                                                <li class="activity-item activity-item--last">
-                                                    <span class="activity-icon bg-success-subtle" aria-hidden="true">
-                                                        <i class="bi bi-file-earmark-plus text-success"></i>
-                                                    </span>
-                                                    <div class="activity-body">
-                                                        <p class="activity-text">Não possui atividade recente...</p>
-                                                        <time class="activity-time" datetime="2026-05-01">há ? dias</time>
-                                                    </div>
-                                                </li>
+                                                <?php 
+                                                        
+                                                $query = $conn->prepare(
+                                                    "SELECT
+                                                    icon,
+                                                    title,
+                                                    createdAt
+                                                    FROM tbl_atividades
+                                                    WHERE id_usuario = ?
+                                                    ORDER BY createdAt DESC
+                                                    LIMIT 5"
+                                                );
+                                                $query->bind_param("i", $user_id);
+                                                $query->execute();
+
+                                                $result = $query->get_result();
+
+                                                ?>
+                                                <?php if($result->num_rows < 1): ?>
+                                                    <li class="activity-item activity-item--last">
+                                                        <span class="activity-icon bg-secondary-subtle" aria-hidden="true">
+                                                            <i class="bi bi-file-earmark-plus text-secondary"></i>
+                                                        </span>
+                                                        <div class="activity-body">
+                                                            <p class="activity-text">Não possui nenhuma atividade recente...</p>
+                                                        </div>
+                                                    </li>
+                                                <?php else: ?>
+                                                    <?php while($row = $result->fetch_assoc()): ?>
+                                                        <li class="activity-item activity-item--last">
+                                                            <span class="activity-icon bg-success-subtle" aria-hidden="true">
+                                                                <i class="<?php echo $row['icon']; ?> text-success"></i>
+                                                            </span>
+                                                            <div class="activity-body">
+                                                                <p class="activity-text"><?php echo $row['title']; ?></p>
+                                                                <time class="activity-time"><?php echo $row['createdAt']; ?></time>
+                                                            </div>
+                                                        </li>
+                                                    <?php endwhile; ?>
+                                                <?php endif; ?>
+                                                <?php $query->close(); ?>
                                             </ol>
                                         </div>
                                     </section>
@@ -417,32 +459,18 @@ if(!isset($_SESSION['auth'])){
                                                 Estatísticas
                                             </h2>
                                             <div class="row g-3" role="list" aria-label="Métricas do perfil">
-                                                <div class="col-6" role="listitem">
+                                                <div class="col-12" role="listitem">
                                                     <article class="stats-card" aria-label="Artigos publicados">
                                                         <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
-                                                        <h3 aria-label="24 artigos">24</h3>
+                                                        <h3 aria-label="24 artigos"><?php echo $row['artigos'] ?? '?'; ?></h3>
                                                         <p>Artigos</p>
                                                     </article>
                                                 </div>
-                                                <div class="col-6" role="listitem">
-                                                    <article class="stats-card" aria-label="Visualizações totais">
-                                                        <i class="bi bi-eye" aria-hidden="true"></i>
-                                                        <h3 aria-label="3.412 visualizações">3.4k</h3>
-                                                        <p>Visualizações</p>
-                                                    </article>
-                                                </div>
-                                                <div class="col-6" role="listitem">
-                                                    <article class="stats-card" aria-label="Edições realizadas">
-                                                        <i class="bi bi-pencil-square" aria-hidden="true"></i>
-                                                        <h3 aria-label="87 edições">87</h3>
-                                                        <p>Edições</p>
-                                                    </article>
-                                                </div>
-                                                <div class="col-6" role="listitem">
+                                                <div class="col-12" role="listitem">
                                                     <article class="stats-card" aria-label="Avaliação média">
                                                         <i class="bi bi-star-half" aria-hidden="true"></i>
                                                         <h3 aria-label="4.8 estrelas">4.8</h3>
-                                                        <p>Avaliação</p>
+                                                        <p>Avaliações</p>
                                                     </article>
                                                 </div>
                                             </div>
@@ -805,7 +833,7 @@ if(!isset($_SESSION['auth'])){
                                                     <div class="pref-item d-flex justify-content-between align-items-start gap-3">
                                                         <div>
                                                             <label for="pref-public-profile" class="pref-label">Perfil Público</label>
-                                                            <p class="pref-desc mb-0">Permite que outros usuários visualizem seu perfil e artigos. <i>(Desabilitado para tutores)</i></p>
+                                                            <p class="pref-desc mb-0">Permite que outros usuários visualizem seu perfil e artigos. <i>(Habilitado para tutores)</i></p>
                                                         </div>
                                                         <div class="form-check form-switch mt-1 flex-shrink-0">
                                                             <input
@@ -816,6 +844,10 @@ if(!isset($_SESSION['auth'])){
                                                                 role="switch"
                                                                 value=<?php echo $pref_show_profile; ?>
                                                                 <?= $pref_show_profile ? 'checked' : '' ?>
+                                                                <?php if($cargo > 1): ?>
+                                                                    checked
+                                                                    disabled
+                                                                <?php endif; ?>
                                                             >
                                                         </div>
                                                     </div>

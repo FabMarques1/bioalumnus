@@ -63,7 +63,7 @@ try {
             users.biografia
         FROM tbl_usuarios users
         LEFT JOIN tbl_telefone tel
-            ON users.id = tel.userprofile
+            ON users.id = tel.id_usuario
         WHERE users.id = ?
         GROUP BY
             users.username,

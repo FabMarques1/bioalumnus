@@ -7,6 +7,7 @@ if(isset($_SESSION['auth'])){
     $user_profile = $_SESSION['user'];
     $user_photo = $_SESSION['photo'];
     $id = $_SESSION['id'];
+    $cargo = $_SESSION['cargo'];
 } else{
     $user_photo = "frontend/assets/icons/incognito.svg";
     $user_name = "Anônimo";
@@ -69,6 +70,9 @@ if(isset($_SESSION['auth'])){
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
                             <li><a class="dropdown-item" href="profile.php?user=<?php echo $user_profile; ?>" style="color: var(--texto-principal);"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-gear me-2"></i>Configurações</a></li>
+                            <?php if($cargo > 1): ?>
+                                <li><a class="dropdown-item" href="criar-artigo.php" style="color: var(--texto-principal);"><i class="bi bi-newspaper"></i> Criar artigo</a></li>
+                            <?php endif; ?>
                             <li><hr class="dropdown-divider" style="border-color: var(--borda-sutil);"></li>
                             <li><a class="dropdown-item" href="backend/src/quit.php" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
@@ -107,7 +111,10 @@ if(isset($_SESSION['auth'])){
                         </div>
                     </a>
                 </div>
-                
+                <a href="backend/src/quit.php">
+                    <button class="btn btn-danger opacity-75 col-12"><i class="bi bi-box-arrow-right me-2"></i>Sair</button>  
+                </a>
+                <hr>
                 <input class="form-control mb-3" type="search" placeholder="Buscar na wiki...">
             </div>
             <p class="sidebar-title">Categorias</p>

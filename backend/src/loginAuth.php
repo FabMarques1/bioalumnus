@@ -31,7 +31,7 @@ $stmt = $conn->prepare(
         users.show_profile
     FROM tbl_usuarios users
     LEFT JOIN tbl_telefone tel
-    ON users.id = tel.phone
+    ON users.id = tel.id_usuario
     WHERE users.userprofile = ?
     GROUP BY 
         users.id,

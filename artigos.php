@@ -99,6 +99,9 @@ if(isset($_SESSION['auth'])){
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--fundo-card); border: 1px solid var(--borda-sutil);">
                             <li><a class="dropdown-item" href="profile.php?user=<?php echo $user_profile; ?>" style="color: var(--texto-principal);"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item" href="#" style="color: var(--texto-principal);"><i class="bi bi-gear me-2"></i>Configurações</a></li>
+                            <?php if($cargo > 1): ?>
+                                <li><a class="dropdown-item" href="criar-artigo.php" style="color: var(--texto-principal);"><i class="bi bi-newspaper"></i> Criar artigo</a></li>
+                            <?php endif; ?>
                             <li><hr class="dropdown-divider" style="border-color: var(--borda-sutil);"></li>
                             <li><a class="dropdown-item" href="backend/src/quit.php" style="color: #dc3545;"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
@@ -122,6 +125,7 @@ if(isset($_SESSION['auth'])){
         </div>
         <div class="offcanvas-body p-0">
             <div class="p-3">
+                
                 <div class="d-flex align-items-center mb-3 p-2 rounded" style="background-color: rgba(45, 90, 39, 0.15); border: 1px solid var(--borda-sutil);">
                     <img src="<?php echo $user_photo; ?>" alt="Usuário" class="rounded-circle me-2" style="width: 42px; height: 42px; object-fit: cover; border: 2px solid var(--verde-mato);">
                     <a style="text-decoration: none;" href="profile.php?user=<?php echo $user_profile; ?>">
@@ -135,11 +139,15 @@ if(isset($_SESSION['auth'])){
                         </div>
                     </a>
                 </div>
+                <a href="backend/src/quit.php">
+                    <button class="btn btn-danger opacity-75 col-12"><i class="bi bi-box-arrow-right me-2"></i>Sair</button>  
+                </a>
+                <hr>
                 <input class="form-control mb-3" type="search" placeholder="Buscar na wiki...">
             </div>
             <p class="sidebar-title">Categorias</p>
             <ul class="sidebar-nav">
-                <li <?php if($theme == "ecologia"){ echo "style='background-color: rgba(75, 151, 65, 0.15);'"; } ?>><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
+                <li><a href="artigos.php?theme=ecologia"><i class="bi bi-tree"></i>Ecologia</a></li>
             </ul>
             <p class="sidebar-title mt-4">Recursos</p>
             <ul class="sidebar-nav">
